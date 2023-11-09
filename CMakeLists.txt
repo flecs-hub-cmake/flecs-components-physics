@@ -21,8 +21,8 @@ target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 set_target_properties(${LIBRARY_NAME} PROPERTIES C_STANDARD 99)
 
 target_compile_definitions(
-  # TARGET_PROPERTY:TYPE == STATIC_LIBRARY ? ${PROJECT_NAME}_STATIC : ""
-  ${LIBRARY_NAME} PUBLIC $<$<STREQUAL:$<TARGET_PROPERTY:${PROJECT_NAME},TYPE>,STATIC_LIBRARY>:;${PROJECT_NAME}_STATIC>
+  # TARGET_PROPERTY:TYPE == STATIC_LIBRARY ? ${LIBRARY_NAME}_STATIC : ""
+  ${LIBRARY_NAME} PUBLIC $<$<STREQUAL:$<TARGET_PROPERTY:${LIBRARY_NAME},TYPE>,STATIC_LIBRARY>:;${LIBRARY_NAME}_STATIC>
 )
 
 ##################################
@@ -48,7 +48,7 @@ CPMAddPackage(
 )
 target_link_libraries(${LIBRARY_NAME} PUBLIC
   # TARGET_PROPERTY:TYPE == STATIC_LIBRARY ? flecs::flecs_static : flecs::flecs
-  $<IF:$<STREQUAL:$<TARGET_PROPERTY:${PROJECT_NAME},TYPE>,STATIC_LIBRARY>,flecs::flecs_static,flecs::flecs>
+  $<IF:$<STREQUAL:$<TARGET_PROPERTY:${LIBRARY_NAME},TYPE>,STATIC_LIBRARY>,flecs::flecs_static,flecs::flecs>
 )
 
 CPMAddPackage("gh:flecs-hub-cmake/flecs-components-graphics#102e6a5d08b2ef41538078997b65d8ed7a81e2e6")
